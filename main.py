@@ -1,6 +1,11 @@
-def main():
-    print("Hello from url-shortener!")
+from fastapi import FastAPI
 
+app = FastAPI()
 
-if __name__ == "__main__":
-    main()
+@app.post("/short_url")
+async def generate_short_url():
+    return ...
+
+@app.get("/{slug}")
+async def generate_short_url(slug: str):
+    return ...
