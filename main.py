@@ -6,8 +6,11 @@ from fastapi import FastAPI
 
 
 
-
 app = FastAPI()
+
+
+
+
 
 ALPHABET: str = string.ascii_letters + string.digits
 
