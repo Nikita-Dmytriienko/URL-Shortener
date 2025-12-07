@@ -12,5 +12,5 @@ async def add_slug_to_database(
             long_url = long_url
         )
         session.add(new_slug)
+        await session.commit()
         
-    

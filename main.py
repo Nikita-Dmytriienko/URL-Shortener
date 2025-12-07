@@ -5,6 +5,8 @@ from fastapi import FastAPI, Body
 from database.db import engine
 from database.models import Base
 
+from service import generate_short_url
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     async with engine.begin() as connection:
@@ -20,7 +22,8 @@ app = FastAPI(lifespan=lifespan)
 async def generate_short_url(
     long_url: str = Body(embeded=True)
 ):
-    return {"data": 1}
+    new_slug = await generate_short_url(long_url)
+    return {"data": new_slug}
 
 @app.get("/{slug}")
 async def redirect_to_url(slug: str):
