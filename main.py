@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, status
+from fastapi.responses import RedirectResponse
 
 from database.db import engine
 from database.models import Base
@@ -19,12 +20,12 @@ app = FastAPI(lifespan=lifespan)
 
 #generate short url
 @app.post("/short_url")
-async def generate_short_url(
+async def generate_slug(
     long_url: str = Body(embeded=True)
 ):
     new_slug = await generate_short_url(long_url)
     return {"data": new_slug}
 
 @app.get("/{slug}")
-async def redirect_to_url(slug: str):
-    return ... #redirect
+async def redirect_to_url(slug: str): 
+    return RedirectResponse(url=...,status_code=status.HTTP_302_FOUND) #redirect
