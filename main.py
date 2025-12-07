@@ -1,29 +1,14 @@
-import string
-from secrets import choice
-
-from fastapi import FastAPI
-
-
+from fastapi import FastAPI, Body
 
 
 app = FastAPI()
 
 
 
-
-
-ALPHABET: str = string.ascii_letters + string.digits
-
-def generate_random_slug():
-    slug=""
-    for _ in range(6):
-        slug+=choice(ALPHABET)
-    return slug
-
-
-
 @app.post("/short_url")
-async def generate_short_url():
+async def generate_short_url(
+    long_url: str = Body(embeded=True)
+):
     return {"data": 1}
 
 @app.get("/{slug}")
