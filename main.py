@@ -27,7 +27,8 @@ async def generate_slug(
     try:
         new_slug = await generate_short_url(long_url)
     except SlugAlreadyExistError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Cant create this slug")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail="Cant create this slug")
         
     return {"data": new_slug}
 
@@ -36,5 +37,6 @@ async def redirect_to_url(slug: str):
     try:
         long_url = await get_url_by_slug(slug)
     except NoLongUrlFoundError:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link doesnt exist")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="Link doesnt exist")
     return RedirectResponse(url=long_url,status_code=status.HTTP_302_FOUND) #redirect
