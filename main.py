@@ -1,11 +1,12 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Body, status
+from fastapi import FastAPI, Body, status, HTTPException
 from fastapi.responses import RedirectResponse
 
 from database.db import engine
 from database.models import Base
 
+from exceptions import NoLongUrlFoundError
 from service import generate_short_url, get_url_by_slug
 
 @asynccontextmanager
@@ -27,5 +28,9 @@ async def generate_slug(
     return {"data": new_slug}
 
 @app.get("/{slug}")
-async def redirect_to_url(slug: str): 
-    return RedirectResponse(url=...,status_code=status.HTTP_302_FOUND) #redirect
+async def redirect_to_url(slug: str):
+    try:
+        long_url = await get_url_by_slug(slug)
+    except NoLongUrlFoundError:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Link doesnt exist")
+    return RedirectResponse(url=long_url,status_code=status.HTTP_302_FOUND) #redirect
