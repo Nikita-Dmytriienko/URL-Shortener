@@ -6,7 +6,7 @@ from fastapi.responses import RedirectResponse
 from database.db import engine
 from database.models import Base
 
-from service import generate_short_url
+from service import generate_short_url, get_url_by_slug
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
