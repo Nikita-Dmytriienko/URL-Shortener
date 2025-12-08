@@ -1,7 +1,11 @@
+
 from database.db import new_session
 from database.models import ShortURL
 
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
+
+from exceptions import SlugAlreadyExistError
 
 async def add_slug_to_database(
     slug:str,
@@ -14,7 +18,10 @@ async def add_slug_to_database(
             long_url = long_url
         )
         session.add(new_slug)
-        await session.commit()
+        try:
+            await session.commit()
+        except IntegrityError:
+            raise SlugAlreadyExistError
         
 async def get_long_url_by_slug_from_db(slug: str)->str | None:
     async with new_session() as session:

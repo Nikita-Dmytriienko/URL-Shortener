@@ -6,7 +6,7 @@ from fastapi.responses import RedirectResponse
 from database.db import engine
 from database.models import Base
 
-from exceptions import NoLongUrlFoundError
+from exceptions import NoLongUrlFoundError, SlugAlreadyExistError
 from service import generate_short_url, get_url_by_slug
 
 @asynccontextmanager
@@ -24,7 +24,11 @@ app = FastAPI(lifespan=lifespan)
 async def generate_slug(
     long_url: str = Body(embed=True)
 ):
-    new_slug = await generate_short_url(long_url)
+    try:
+        new_slug = await generate_short_url(long_url)
+    except SlugAlreadyExistError:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Cant create this slug")
+        
     return {"data": new_slug}
 
 @app.get("/{slug}")
