@@ -16,11 +16,12 @@ async def add_slug_to_database(
         session.add(new_slug)
         await session.commit()
         
-async def get_long_url_by_slug_from_db(slug:str)->str | None:
+async def get_long_url_by_slug_from_db(slug: str)->str | None:
     async with new_session() as session:
         query = select(ShortURL).filter_by(slug=slug)
         result = await session.execute(query)
-        res = result.scalar_one_or_none()
+        res: ShortURL |  None = result.scalar_one_or_none()
+        return res.long_url if res.long_url else None
         
         
         
