@@ -1,4 +1,5 @@
 from database.crud import add_slug_to_database, get_long_url_by_slug_from_db
+from exceptions import NoLongUrlFoundError
 from shortener import generate_random_slug
 
 #It's more convenient to do everything through a class
@@ -18,9 +19,8 @@ async def generate_short_url(
     return slug
 
 
-async def get_url_by_slug(slug: str) -> str | None:
+async def get_url_by_slug(slug: str) -> str:
     long_url = await get_long_url_by_slug_from_db(slug)
+    if not long_url:
+        raise NoLongUrlFoundError()
     return  long_url
-    
-        
-    
