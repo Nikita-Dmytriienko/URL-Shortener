@@ -1,12 +1,16 @@
 from contextlib import asynccontextmanager
+from typing import Annotated, AsyncGenerator
 
-from fastapi import FastAPI, Body, status, HTTPException
+from fastapi import Depends, FastAPI, Body, status, HTTPException
 from fastapi.responses import RedirectResponse
 
-from database.db import engine
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from database.db import engine, new_session
 from database.models import Base
 
 from exceptions import NoLongUrlFoundError, SlugAlreadyExistError
+
 from service import generate_short_url, get_url_by_slug
 
 @asynccontextmanager
@@ -18,14 +22,19 @@ async def lifespan(app: FastAPI):
 #lifespan
 app = FastAPI(lifespan=lifespan)
 
+async def get_session() -> AsyncGenerator[AsyncSession,None ]:
+    async with new_session() as session:
+        yield session
+
 
 #generate short url
 @app.post("/short_url")
 async def generate_slug(
-    long_url: str = Body(embed=True)
+    session: Annotated[AsyncSession, Depends(get_session)], 
+    long_url: Annotated[str, Body(embed=True)],
 ):
     try:
-        new_slug = await generate_short_url(long_url)
+        new_slug = await generate_short_url(long_url, session)
     except SlugAlreadyExistError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Cant create this slug")
@@ -33,9 +42,12 @@ async def generate_slug(
     return {"data": new_slug}
 
 @app.get("/{slug}")
-async def redirect_to_url(slug: str):
+async def redirect_to_url( 
+    slug: str,
+    session: Annotated[AsyncSession, Depends(get_session)], 
+):
     try:
-        long_url = await get_url_by_slug(slug)
+        long_url = await get_url_by_slug(slug, session)
     except NoLongUrlFoundError:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail="Link doesnt exist")

@@ -1,11 +1,16 @@
 from database.crud import add_slug_to_database, get_long_url_by_slug_from_db
+
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from exceptions import NoLongUrlFoundError, SlugAlreadyExistError
+
 from shortener import generate_random_slug
 
 #It's more convenient to do everything through a class
 #That's the advantage of the OOP approach
 async def generate_short_url(
     long_url: str,
+    session: AsyncSession,
     
 ) -> str:
 #1 Generating this slug
@@ -14,7 +19,7 @@ async def generate_short_url(
     async def _generate_slug_and_add_to_db() -> str:
         slug = generate_random_slug()
         await add_slug_to_database(
-            slug, long_url
+            slug, long_url, session
         )
         return slug
     for attempt  in range(5):
@@ -25,12 +30,10 @@ async def generate_short_url(
             if attempt ==4:
                 raise SlugAlreadyExistError from ex
     return slug
-        
-        
 
-
-async def get_url_by_slug(slug: str) -> str:
-    long_url = await get_long_url_by_slug_from_db(slug)
+        
+async def get_url_by_slug(slug: str, session: AsyncSession) -> str:
+    long_url = await get_long_url_by_slug_from_db(slug, session)
     if not long_url:
         raise NoLongUrlFoundError()
     return  long_url
