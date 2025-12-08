@@ -7,14 +7,13 @@ from shortener import generate_random_slug
 async def generate_short_url(
     long_url: str,
     
-)->str:
+) -> str:
 #1 Generating this slug
 #2 Adding to the database
 #3 We give the client a link
     slug = generate_random_slug()
     await add_slug_to_database(
-        slug,
-        long_url
+        slug, long_url
     )
     return slug
 
