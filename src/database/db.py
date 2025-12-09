@@ -1,6 +1,5 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
-
 engine = create_async_engine(
     url="postgresql+asyncpg://postgres:postgres@localhost:6433/postgres",
     pool_size=20,
