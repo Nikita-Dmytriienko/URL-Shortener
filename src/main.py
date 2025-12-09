@@ -3,15 +3,13 @@ from typing import Annotated, AsyncGenerator
 
 from fastapi import Depends, FastAPI, Body, status, HTTPException
 from fastapi.responses import RedirectResponse
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from database.db import engine, new_session
-from database.models import Base
+from src.database.db import engine, new_session
+from src.database.models import Base
 
-from exceptions import NoLongUrlFoundError, SlugAlreadyExistError
-
-from service import generate_short_url, get_url_by_slug
+from src.exceptions import NoLongUrlFoundError, SlugAlreadyExistError
+from src.service import generate_short_url, get_url_by_slug
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

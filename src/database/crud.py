@@ -1,10 +1,10 @@
-from database.models import ShortURL
 
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from exceptions import SlugAlreadyExistError
+from src.database.models import ShortURL
+from src.exceptions import SlugAlreadyExistError
 
 async def add_slug_to_database(
     slug:str,

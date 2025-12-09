@@ -1,10 +1,8 @@
-from database.crud import add_slug_to_database, get_long_url_by_slug_from_db
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from exceptions import NoLongUrlFoundError, SlugAlreadyExistError
-
-from shortener import generate_random_slug
+from src.database.crud import add_slug_to_database, get_long_url_by_slug_from_db
+from src.exceptions import NoLongUrlFoundError, SlugAlreadyExistError
+from src.shortener import generate_random_slug
 
 #It's more convenient to do everything through a class
 #That's the advantage of the OOP approach
