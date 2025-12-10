@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 from typing import Annotated, AsyncGenerator
 
 from fastapi import Depends, FastAPI, Body, status, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -19,6 +20,14 @@ async def lifespan(app: FastAPI):
     
 #lifespan
 app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware, 
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 async def get_session() -> AsyncGenerator[AsyncSession,None ]:
     async with new_session() as session:
