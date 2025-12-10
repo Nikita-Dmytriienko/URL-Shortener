@@ -29,6 +29,10 @@ async def setup_db():
         await connection.run_sync(Base.metadata.drop_all)
         await connection.run_sync(Base.metadata.create_all)
 
+@pytest.fixture(scope="function")
+async def session():
+    async with new_session() as session:
+        yield session
 
 @pytest.fixture(scope="function")
 async def session():
