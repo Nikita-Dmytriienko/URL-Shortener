@@ -26,6 +26,3 @@ async def get_long_url_by_slug_from_db(slug: str, session)->str | None:
     result = await session.execute(query)
     res: ShortURL |  None = result.scalar_one_or_none()
     return res.long_url if res.long_url else None
-        
-        
-        
