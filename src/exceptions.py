@@ -1,5 +1,3 @@
-
-
 class ShortenerBaseError(Exception):
     pass
 
