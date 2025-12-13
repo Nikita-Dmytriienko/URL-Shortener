@@ -5,7 +5,7 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.121%2B-00C4B4?logo=fastapi)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15%2B-336791?logo=postgresql&logoColor=white)
 ![uv](https://img.shields.io/badge/built%20with-uv-5C4EE5)
-![Coverage](https://img.shields.io/badge/coverage-71%25-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-77%25-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 Fast, async, production-ready URL shortening service built with **FastAPI + SQLAlchemy 2.0 + PostgreSQL + Pydantic v2**.
@@ -131,7 +131,7 @@ src\shortener.py             8      0      2      0   100%
 tests\conftest.py           30      6      0      0    80%
 tests\test_service.py        5      0      0      0   100%
 ----------------------------------------------------------
-TOTAL                      132     35      8      1    71%
+TOTAL                      132     35      8      1    77%
 ============================== 1 passed in 0.22s ==============================
 Finished running tests!
 ```
