@@ -1,6 +1,5 @@
 # URL Shortener
 
-
 ![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.121%2B-00C4B4?logo=fastapi)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15%2B-336791?logo=postgresql&logoColor=white)
@@ -135,6 +134,7 @@ TOTAL                      132     35      8      1    77%
 ============================== 1 passed in 0.22s ==============================
 Finished running tests!
 ```
+
 ## Future badges (after pushing to GitHub)
 
 Just add a simple GitHub Actions workflow and you'll get:
