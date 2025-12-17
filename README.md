@@ -114,6 +114,7 @@ Run tests with coverage:
 ```bash
 pytest --cov=app --cov-report=term-missing
 ```
+
 ```
 =============================== tests coverage ================================
 ______________ coverage: platform win32, python 3.12.12-final-0 _______________
