@@ -1,4 +1,4 @@
-# URL Shortener
+#№ URL Shortener
 
 
 ![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue)
@@ -112,7 +112,7 @@ uv sync   # install dependencies (super fast)
 uvicorn app.main:app --reload
 ```
 
-Run tests with coverage:
+Run tests with coverage:   
 ```bash
 pytest --cov=app --cov-report=term-missing
 ```
