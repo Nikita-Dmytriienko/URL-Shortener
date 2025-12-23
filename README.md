@@ -140,7 +140,7 @@ Finished running tests!
 
 ## Future badges (after pushing to GitHub)
 
-Just add a simple GitHub Actions workflow and you'll get:
+Just add a simple GitHub Actions workflow and you'll get it:
 
 ![Tests](https://github.com/your-username/url-shortener/workflows/Tests/badge.svg)
 ![Coverage](https://codecov.io/gh/your-username/url-shortener/branch/main/graph/badge.svg)
