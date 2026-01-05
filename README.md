@@ -19,7 +19,7 @@ Fully Dockerized — runs with a single `docker compose up`.
 - Custom short codes support    +
 - Full URL validation + optional live existence check    -
 - Rate limiting: **100 requests per minute per IP**    +
-- Click statistics for every link  -
+- Click statistics for every link  - in progress
 - 100% async (asyncpg + SQLAlchemy 2.0)    +
 - Automatic OpenAPI docs at `/docs` and `/redoc`    +
 - Load tested with `hey` → **18 000+ RPS** on a single container    +
