@@ -29,7 +29,6 @@ async def generate_short_url(
                 raise SlugAlreadyExistError from ex
     return slug
 
-        
 async def get_url_by_slug(slug: str, session: AsyncSession) -> str:
     long_url = await get_long_url_by_slug_from_db(slug, session)
     if not long_url:
